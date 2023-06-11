@@ -42,7 +42,22 @@ calculate_score(['A', 10])
 
 
 
-# def compare():
+def compare(player_score, computer_score):
+    if player_score == computer_score:
+        return "It's a Draw"
+    elif player_score == 0:
+        return "Blackjack you win!"
+    elif computer_score == 0:
+        return "The computer scored a blackjack, you lose."
+    elif player_score > 21:
+        return "You went over, you lose"
+    elif computer_score > 21:
+        return "You win, the computer went over!"
+    elif player_score > computer_score:
+        return "You win!" 
+    else:
+        return "You lose." 
+
 
 player_cards = []
 computer_cards = []
@@ -55,3 +70,4 @@ player_score = calculate_score(player_cards)
 computer_score = calculate_score(computer_cards)
 print(f"Your current cards are: {player_cards}, your current score is: {player_score}")
 print(f"The computer's first card is: {computer_cards[0]}")
+
