@@ -13,8 +13,6 @@ import random
 # SHEET = GSPREAD_CLIENT.open('Blackjack1')
 
 def deal_cards():
-    player_cards = []
-    computer_cards = []
     deck = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K',
     'A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K','A', 2,
     3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K','A', 2, 3, 4,
@@ -22,18 +20,38 @@ def deal_cards():
     
     random.shuffle(deck)
     card = deck[0]
-    print(card)
+    return card
     deck.remove(card)
 
-
-deal_cards()
-
-# def calculate_score():
+def calculate_score(cards):
+    score = 0
+    for card in cards:
+        if card == 'J' or card == 'Q' or card == 'K':
+            score += 10
+        elif card == 'A':
+            if score <= 11:
+                score += 11
+            else:
+                score += 1
+        else:
+            score += card
+    return score 
+    if score == 21 and len(cards) == 2:
+        return 0
+calculate_score(['A', 10])
 
 
 
 # def compare():
 
+player_cards = []
+computer_cards = []
 
+for i in range(2):
+    player_cards.append(deal_cards())
+    computer_cards.append(deal_cards())
 
-# def deal_again():
+player_score = calculate_score(player_cards)
+computer_score = calculate_score(computer_cards)
+print(f"Your current cards are: {player_cards}, your current score is: {player_score}")
+print(f"The computer's first card is: {computer_cards[0]}")
