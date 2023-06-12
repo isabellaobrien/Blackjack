@@ -1,16 +1,16 @@
 import gspread
 from google.oauth2.service_account import Credentials
 import random
-# SCOPE = [
-#     "https://www.googleapis.com/auth/spreadsheets",
-#     "https://www.googleapis.com/auth/drive.file",
-#     "https://www.googleapis.com/auth/drive"
-#     ]
+SCOPE = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive.file",
+    "https://www.googleapis.com/auth/drive"
+    ]
 
-# CREDS = Credentials.from_service_account_file('creds.json')
-# SCOPED_CREDS = CREDS.with_scopes(SCOPE)
-# GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
-# SHEET = GSPREAD_CLIENT.open('Blackjack1')
+CREDS = Credentials.from_service_account_file('creds.json')
+SCOPED_CREDS = CREDS.with_scopes(SCOPE)
+GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
+SHEET = GSPREAD_CLIENT.open('Blackjack1')
 
 def deal_cards():
     deck = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K',
@@ -35,12 +35,11 @@ def calculate_score(cards):
                 score += 1
         else:
             score += card
-    return score 
+     
     if score == 21 and len(cards) == 2:
         return 0
-calculate_score(['A', 10])
 
-
+    return score
 
 def compare(player_score, computer_score):
     if player_score == computer_score:
@@ -54,20 +53,74 @@ def compare(player_score, computer_score):
     elif computer_score > 21:
         return "You win, the computer went over!"
     elif player_score > computer_score:
-        return "You win!" 
+        return "You win!"
     else:
-        return "You lose." 
+        return "You lose."
+
+# def play():
+#     player_cards = []
+#     computer_cards = []
+#     game_over = False
+
+#     for i in range(2):
+#         player_cards.append(deal_cards())
+#         computer_cards.append(deal_cards())
 
 
-player_cards = []
-computer_cards = []
+#     while not game_over:
+#         player_score = calculate_score(player_cards)
+#         computer_score = calculate_score(computer_cards)
+#         print(f"Your current cards are: {player_cards}, your current score is: {player_score}")
+#         print(f"The computer's first card is: {computer_cards[0]}")
 
-for i in range(2):
-    player_cards.append(deal_cards())
-    computer_cards.append(deal_cards())
+#         if player_score == 0 or computer_score == 0 or player_score > 21:
+#             game_over == True
+#         else:
+#             draw_another_card = input("Do you want to draw another card? type 'y' or 'n': ")
+#             if draw_another_card == 'y':
+#                 player_cards.append(deal_cards())
+#             else:
+#                 game_over == True 
 
-player_score = calculate_score(player_cards)
-computer_score = calculate_score(computer_cards)
-print(f"Your current cards are: {player_cards}, your current score is: {player_score}")
-print(f"The computer's first card is: {computer_cards[0]}")
+#     while computer_score !=0 and computer_score < 16:
+#         computer_cards.append(deal_card())
+#         computer_score = calculate_score(computer_cards)
+#     print(f"Your final hand: {user_cards}, your final score: {user_score}")
+#     print(f"Computer's final hand: {computer_cards}, computer's final score: {computer_score}")
+#     print(compare(user_score, computer_score))
 
+
+
+def play():   
+    player_cards = []
+    computer_cards = []
+    game_over = False
+
+    for _ in range(2):
+        player_cards.append(deal_cards())
+        computer_cards.append(deal_cards())
+
+    while not game_over:
+        player_score = calculate_score(player_cards)
+        computer_score = calculate_score(computer_cards)
+        print(f"These are your current cards: {player_cards}, this is your current score: {player_score}")
+        print(f"This is the computer's first card: {computer_cards[0]}")
+
+        if computer_score == 0 or player_score == 0 or player_score > 21:
+            game_over = True
+        else:
+            should_continue = input("Do you want to draw another card? type 'y' or 'n': ")
+            if should_continue == 'y':
+                player_cards.append(deal_cards())
+                print(player_cards)
+            else:
+                game_over = True
+
+    while computer_score !=0 and computer_score < 16:
+        computer_cards.append(deal_cards())
+        computer_score = calculate_score(computer_cards)
+    print(f"Your final hand: {player_cards}, your final score: {player_score}")
+    print(f"Computer's final hand: {computer_cards}, computer's final score: {computer_score}")
+    print(compare(player_score, computer_score))
+
+play()
