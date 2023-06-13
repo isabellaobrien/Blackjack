@@ -61,7 +61,7 @@ def compare(player_score, computer_score):
 
 
 def play(): 
-    print(blackjack)
+    
     player_cards = []
     computer_cards = []
     game_over = False
@@ -95,4 +95,28 @@ def play():
     print(f"Computer's final hand: {computer_cards}, computer's final score: {computer_score}")
     print(compare(player_score, computer_score))
 
-play()
+
+print(blackjack)
+print("Welcome to Blackjack!")
+username = input("What's your user name?\n")
+while input("Do you want to play a game of blackjack? type 'y' or 'n': \n") == 'y':
+    play()
+
+
+
+
+# sheet1 = SHEET.worksheet('Sheet1')
+
+# players = sheet1.col_values(1)
+# player_final_score = sheet1.col_values(2) 
+# computer_final_score = sheet1.col_values(3)
+# outcome = sheet1.col_values(4)
+# for i in range(1,5):
+#     print(f"{players[i]} scored: {player_final_score[i]}, computer scored: {computer_final_score[i]} -- {outcome[i]}")
+
+
+def update_sheet(data, worksheet):
+    worksheet.append_row(data)
+
+players = SHEET.worksheet("players")
+update_sheet([username], players)
