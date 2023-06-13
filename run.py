@@ -58,7 +58,15 @@ def compare(player_score, computer_score):
     else:
         return "You lose."
 
+print(blackjack)
+print("Welcome to Blackjack!")
+username = input("What's your user name?\n")
 
+def update_sheet(data, worksheet):
+    worksheet.append_row(data)
+
+players = SHEET.worksheet("players")
+update_sheet([username], players)
 
 def play(): 
     
@@ -93,15 +101,20 @@ def play():
         computer_score = calculate_score(computer_cards)
     print(f"Your final hand: {player_cards}, your final score: {player_score}")
     print(f"Computer's final hand: {computer_cards}, computer's final score: {computer_score}")
-    print(compare(player_score, computer_score))
+    outcome = compare(player_score, computer_score)
+    print(outcome)
+    player_final_scores = SHEET.worksheet('player_final_scores')
+    update_sheet([player_score], player_final_scores)
+    computer_final_scores = SHEET.worksheet('computer_final_scores')
+    update_sheet([computer_score], computer_final_scores)
+    winner = SHEET.worksheet('winner')
+    update_sheet([outcome], winner)
 
 
-print(blackjack)
-print("Welcome to Blackjack!")
-username = input("What's your user name?\n")
 while input("Do you want to play a game of blackjack? type 'y' or 'n': \n") == 'y':
     play()
 
+# the sheet updates but the name appears also when the user does not want to play another game 
 
 
 
@@ -115,8 +128,4 @@ while input("Do you want to play a game of blackjack? type 'y' or 'n': \n") == '
 #     print(f"{players[i]} scored: {player_final_score[i]}, computer scored: {computer_final_score[i]} -- {outcome[i]}")
 
 
-def update_sheet(data, worksheet):
-    worksheet.append_row(data)
 
-players = SHEET.worksheet("players")
-update_sheet([username], players)
