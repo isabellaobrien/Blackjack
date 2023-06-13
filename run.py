@@ -1,6 +1,7 @@
 import gspread
 from google.oauth2.service_account import Credentials
 import random
+from art import blackjack
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -57,41 +58,10 @@ def compare(player_score, computer_score):
     else:
         return "You lose."
 
-# def play():
-#     player_cards = []
-#     computer_cards = []
-#     game_over = False
-
-#     for i in range(2):
-#         player_cards.append(deal_cards())
-#         computer_cards.append(deal_cards())
 
 
-#     while not game_over:
-#         player_score = calculate_score(player_cards)
-#         computer_score = calculate_score(computer_cards)
-#         print(f"Your current cards are: {player_cards}, your current score is: {player_score}")
-#         print(f"The computer's first card is: {computer_cards[0]}")
-
-#         if player_score == 0 or computer_score == 0 or player_score > 21:
-#             game_over == True
-#         else:
-#             draw_another_card = input("Do you want to draw another card? type 'y' or 'n': ")
-#             if draw_another_card == 'y':
-#                 player_cards.append(deal_cards())
-#             else:
-#                 game_over == True 
-
-#     while computer_score !=0 and computer_score < 16:
-#         computer_cards.append(deal_card())
-#         computer_score = calculate_score(computer_cards)
-#     print(f"Your final hand: {user_cards}, your final score: {user_score}")
-#     print(f"Computer's final hand: {computer_cards}, computer's final score: {computer_score}")
-#     print(compare(user_score, computer_score))
-
-
-
-def play():   
+def play(): 
+    print(blackjack)
     player_cards = []
     computer_cards = []
     game_over = False
