@@ -14,6 +14,8 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('Blackjack1')
 
 def deal_cards():
+    """returns the first card from a shuffled deck of cards.
+     The delt card is then removed from the deck."""
     deck = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K',
     'A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K','A', 2,
     3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K','A', 2, 3, 4,
@@ -25,6 +27,11 @@ def deal_cards():
     deck.remove(card)
 
 def calculate_score(cards):
+    """Takes a list of cards and checks if there's a J,Q or K, if 
+    there is it adds 10 to the score (score starts at 0). If there's 
+    an ace and the score is above 11 already, 
+    1 is added if not 11 is added. And finally it returns the score 
+    calculated from the cards"""
     score = 0
     for card in cards:
         if card == 'J' or card == 'Q' or card == 'K':
@@ -42,33 +49,41 @@ def calculate_score(cards):
 
     return score
 
-def compare(player_score, computer_score):
-    if player_score == computer_score:
-        return "It's a Draw"
-    elif player_score == 0:
-        return "Blackjack you win!"
-    elif computer_score == 0:
-        return "The computer scored a blackjack, you lose."
-    elif player_score > 21:
-        return "You went over, you lose"
-    elif computer_score > 21:
-        return "You win, the computer went over!"
-    elif player_score > computer_score:
-        return "You win!"
-    else:
-        return "You lose."
-
 print(blackjack)
 print("Welcome to Blackjack!")
 username = input("What's your user name?\n")
 
 def update_sheet(data, worksheet):
+    """updates the worksheets"""
     worksheet.append_row(data)
+
+def compare(player_score, computer_score):
+    """Compares the user and users score to see who wins"""
+    if player_score == computer_score:
+        return "It's a Draw"
+    elif player_score == 0:
+        return f"Blackjack {username} won!"
+    elif computer_score == 0:
+        return f"The computer scored a blackjack, {username} lose."
+    elif player_score > 21:
+        return f"{username} went over, {username} lost"
+    elif computer_score > 21:
+        return f"{username} won, the computer went over!"
+    elif player_score > computer_score:
+        return f"{username} won!"
+    else:
+        return f"{username} lost."
+
+
 
 players = SHEET.worksheet("players")
 update_sheet([username], players)
 
 def play(): 
+    """runs the game. It deals two cards to the user and 
+    two to the computer, it only reveals one of the computers cards. 
+    If no one has scored a blackjack or goen over 21 teh game continues, the user can draw another card.
+    The computer draws another cards if the score is below 16 and not a blackajack"""
     
     player_cards = []
     computer_cards = []
@@ -103,29 +118,33 @@ def play():
     print(f"Computer's final hand: {computer_cards}, computer's final score: {computer_score}")
     outcome = compare(player_score, computer_score)
     print(outcome)
+
+    # this section updates the worksheets and returns the leaderboard 
     player_final_scores = SHEET.worksheet('player_final_scores')
     update_sheet([player_score], player_final_scores)
     computer_final_scores = SHEET.worksheet('computer_final_scores')
     update_sheet([computer_score], computer_final_scores)
-    winner = SHEET.worksheet('winner')
-    update_sheet([outcome], winner)
+    winners = SHEET.worksheet('winners')
+    update_sheet([outcome], winners)
+    for i in reversed(range(1, 3)):
+        player = players.row_values(i)
+        player_final_score = player_final_scores.row_values(i)
+        computer_final_score = computer_final_scores.row_values(i)
+        winner = winners.row_values(i)
 
+        print(f"{player[0]} scored: {player_final_score[0]}, computer scored: {computer_final_score[0]} -- {winner[0]}")
 
+#if the user decides to play another game the name is not saved a second time
+#  but the score is. I've tried updating the worksheet again when the user decides
+#to play again but it saves the username even if the user doesn't want to play again
+
+#I can't show the most recent scores with range. Ineed to know exactly how many people have played 
+# and how many times.
 while input("Do you want to play a game of blackjack? type 'y' or 'n': \n") == 'y':
     play()
+    
 
-# the sheet updates but the name appears also when the user does not want to play another game 
-
-
-
-# sheet1 = SHEET.worksheet('Sheet1')
-
-# players = sheet1.col_values(1)
-# player_final_score = sheet1.col_values(2) 
-# computer_final_score = sheet1.col_values(3)
-# outcome = sheet1.col_values(4)
-# for i in range(1,5):
-#     print(f"{players[i]} scored: {player_final_score[i]}, computer scored: {computer_final_score[i]} -- {outcome[i]}")
+ 
 
 
 
