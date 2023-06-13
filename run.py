@@ -79,14 +79,16 @@ def play():
         if computer_score == 0 or player_score == 0 or player_score > 21:
             game_over = True
         else:
-            should_continue = input("Do you want to draw another card? type 'y' or 'n': ")
+            should_continue = input("Do you want to draw another card? type 'y' or 'n':\n ")
             if should_continue == 'y':
                 player_cards.append(deal_cards())
                 print(player_cards)
-            else:
+            elif should_continue == 'n':
                 game_over = True
+            else:
+                print("Error, invalid data.Please input valid data. type 'y' or 'n'!!!\n")
 
-    while computer_score !=0 and computer_score < 16:
+    while computer_score != 0 and computer_score < 16:
         computer_cards.append(deal_cards())
         computer_score = calculate_score(computer_cards)
     print(f"Your final hand: {player_cards}, your final score: {player_score}")
