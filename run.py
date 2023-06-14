@@ -4,6 +4,8 @@ import random
 import os
 import time
 from art import blackjack
+from colored import fg
+
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -55,8 +57,13 @@ def calculate_score(cards):
     return score
 
 print(blackjack)
-print("Welcome to Blackjack!")
-username = input("What's your user name?\n")
+blue = fg('deep_sky_blue_1')
+green = fg('pale_green_1b')
+pink = fg('indian_red_1d')
+yellow = fg('light_goldenrod_2b')
+
+print(blue + "Welcome to Blackjack!")
+username = input(green + "What's your user name?\n")
 
 leaderboard = SHEET.worksheet('leaderboard')
 def update_leaderboard(data):
@@ -66,17 +73,17 @@ def update_leaderboard(data):
 def compare(player_score, computer_score):
     """Compares the user and users score to see who wins"""
     if player_score == computer_score:
-        return "Draw"
+        return yellow + "Draw"
     elif player_score == 21:
-        return f"Blackjack {username} won!"
+        return yellow + f"Blackjack {username} won!"
     elif computer_score == 21:
-        return f"The computer scored a blackjack"
+        return yellow + f"The computer scored a blackjack"
     elif player_score > 21:
-        return f"{username} went over, {username} lost"
+        return yellow + f"{username} went over, {username} lost"
     elif computer_score > 21:
-        return f"{username} won, the computer went over!"
+        return yellow + f"{username} won, the computer went over!"
     elif player_score > computer_score:
-        return f"{username} won!"
+        return yellow + f"{username} won!"
     else:
         return f"{username} lost."
 
@@ -98,13 +105,13 @@ def play():
     while not game_over:
         player_score = calculate_score(player_cards)
         computer_score = calculate_score(computer_cards)
-        print(f"Your cards: {player_cards}, score: {player_score}")
-        print(f"Computer's first card: {computer_cards[0]}")
+        print(green + f"Your cards: {player_cards}, score: {player_score}")
+        print(pink + f"Computer's first card: {computer_cards[0]}")
 
         if computer_score == 21 or player_score == 21 or player_score > 21:
             game_over = True
         else:
-            should_continue = input("Do you want to draw another card? type 'y' or 'n': \n")
+            should_continue = input(blue + "Do you want to draw another card? type 'y' or 'n': \n")
             if should_continue == 'y':
                 player_cards.append(deal_cards())
             elif should_continue == 'n':
@@ -115,8 +122,8 @@ def play():
     while computer_score < 16:
         computer_cards.append(deal_cards())
         computer_score = calculate_score(computer_cards)
-    print(f"Your final hand: {player_cards}, final score: {player_score}")
-    print(f"Computer's final hand: {computer_cards}, final score: {computer_score}")
+    print(green + f"Your final hand: {player_cards}, final score: {player_score}")
+    print(pink + f"Computer's final hand: {computer_cards}, final score: {computer_score}")
     outcome = compare(player_score, computer_score)
     print(outcome)
 
@@ -125,10 +132,11 @@ def play():
     records = leaderboard.get_all_records()
     records.reverse()
     
+
     for i in range(len(records)):
         print(records[i])
 
-while input("Do you want to play a game of blackjack? type 'y' or 'n': \n") == 'y':
+while input(blue + "Do you want to play a game of blackjack? type 'y' or 'n': \n") == 'y':
     play()
     time.sleep(3)
     os.system('clear')
