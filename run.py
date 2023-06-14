@@ -1,7 +1,10 @@
 import gspread
 from google.oauth2.service_account import Credentials
 import random
+import os
+import time
 from art import blackjack
+
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -127,6 +130,9 @@ def play():
 
 while input("Do you want to play a game of blackjack? type 'y' or 'n': \n") == 'y':
     play()
+    time.sleep(3)
+    os.system('clear')
+    
     
 
 
