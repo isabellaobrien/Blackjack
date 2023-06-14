@@ -13,10 +13,7 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('Blackjack1')
 
-# deck = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K',
-#     'A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K','A', 2,
-#     3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K','A', 2, 3, 4,
-#     5, 6, 7, 8, 9, 10, 'J', 'Q', 'K']
+
 
 def deal_cards():
     """returns the first card from a shuffled deck of cards.
@@ -50,8 +47,8 @@ def calculate_score(cards):
                 score += 1
         else:
             score += card
-     
-   
+
+
     return score
 
 print(blackjack)
@@ -66,11 +63,11 @@ def update_leaderboard(data):
 def compare(player_score, computer_score):
     """Compares the user and users score to see who wins"""
     if player_score == computer_score:
-        return "It's a Draw"
+        return "Draw"
     elif player_score == 21:
         return f"Blackjack {username} won!"
     elif computer_score == 21:
-        return f"The computer scored a blackjack, {username} lost."
+        return f"The computer scored a blackjack"
     elif player_score > 21:
         return f"{username} went over, {username} lost"
     elif computer_score > 21:
@@ -84,8 +81,9 @@ def compare(player_score, computer_score):
 def play(): 
     """runs the game. It deals two cards to the user and 
     two to the computer, it only reveals one of the computers cards. 
-    If no one has scored a blackjack or goen over 21 teh game continues, the user can draw another card.
-    The computer draws another cards if the score is below 16 and not a blackajack"""
+    If no one has scored a blackjack or goen over 21 teh game continues,
+    the user can draw another card.The computer draws another cards if
+    the score is below 16 and not a blackajack"""
     player_cards = []
     computer_cards = []
     game_over = False
@@ -97,8 +95,8 @@ def play():
     while not game_over:
         player_score = calculate_score(player_cards)
         computer_score = calculate_score(computer_cards)
-        print(f"These are your current cards: {player_cards}, this is your current score: {player_score}")
-        print(f"This is the computer's first card: {computer_cards[0]}")
+        print(f"Your cards: {player_cards}, score: {player_score}")
+        print(f"Computer's first card: {computer_cards[0]}")
 
         if computer_score == 21 or player_score == 21 or player_score > 21:
             game_over = True
@@ -114,8 +112,8 @@ def play():
     while computer_score < 16:
         computer_cards.append(deal_cards())
         computer_score = calculate_score(computer_cards)
-    print(f"Your final hand: {player_cards}, your final score: {player_score}")
-    print(f"Computer's final hand: {computer_cards}, computer's final score: {computer_score}")
+    print(f"Your final hand: {player_cards}, final score: {player_score}")
+    print(f"Computer's final hand: {computer_cards}, final score: {computer_score}")
     outcome = compare(player_score, computer_score)
     print(outcome)
 
