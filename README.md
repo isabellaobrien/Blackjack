@@ -1,32 +1,17 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Blackjack
+Blackjack is a game that runs in the terminal. It can be played in a mock terminal on heroku.
+Users play against the computer with a deck of 52 cards. The user needs to try and score 21 a blackjack or a score higher than the computer but it has to be below 21.
 
-Welcome,
+Link to live project
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **March 14, 2023**
+Screenshots
 
-## Reminders
+## How to pay
+This terminal game is based on the blackjack casino game. Link to find out more.
 
-- Your code must be placed in the `run.py` file
-- Your dependencies must be placed in the `requirements.txt` file
-- Do not edit any of the other files or your code may not deploy properly
+In this version the user inputs their username and two cards for the player and two for the computer are drawn from a shuffled deck.
+The player can see both of their cards but only the computer’s first card.
 
-## Creating the Heroku app
+If the user or the computer don’t score a blackjack in the first hand, the player will be asked if they want to draw another card. The computer only draws another card if the score is less than 16. 
+The game ends when someone scores a blackjack. Or when someone’s score is above 21 and if both scores are below 21 the person with the highest score wins.
 
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
-
-1. `heroku/python`
-2. `heroku/nodejs`
-
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
-
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
-
-Connect your GitHub repository and deploy as normal.
-
-## Constraints
-
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
-
----
-
-Happy coding!

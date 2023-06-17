@@ -18,17 +18,16 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('Blackjack1')
 
-
-
-def deal_cards():
-    """returns the first card from a shuffled deck of cards.
-     The delt card is then removed from the deck."""
-
-    deck = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K',
+deck = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K',
     'A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K','A', 2,
     3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K','A', 2, 3, 4,
     5, 6, 7, 8, 9, 10, 'J', 'Q', 'K']
 
+def deal_cards(deck):
+    """returns the first card from a shuffled deck of cards.
+     The delt card is then removed from the deck."""
+
+    
     random.shuffle(deck)
     card = deck[0]
     deck.remove(card)
@@ -73,34 +72,38 @@ def update_leaderboard(data):
 def compare(player_score, computer_score):
     """Compares the user and users score to see who wins"""
     if player_score == computer_score:
-        return yellow + "Draw"
+        return  "Draw"
     elif player_score == 21:
-        return yellow + f"Blackjack {username} won!"
+        return f"Blackjack {username} won!"
     elif computer_score == 21:
-        return yellow + f"The computer scored a blackjack"
+        return f"The computer scored a blackjack"
     elif player_score > 21:
-        return yellow + f"{username} went over, {username} lost"
+        return f"{username} went over, {username} lost"
     elif computer_score > 21:
-        return yellow + f"{username} won, the computer went over!"
+        return f"{username} won, the computer went over!"
     elif player_score > computer_score:
-        return yellow + f"{username} won!"
+        return f"{username} won!"
     else:
         return f"{username} lost."
 
 
 def play(): 
+
     """runs the game. It deals two cards to the user and 
     two to the computer, it only reveals one of the computers cards. 
     If no one has scored a blackjack or goen over 21 teh game continues,
     the user can draw another card.The computer draws another cards if
     the score is below 16 and not a blackajack"""
+    play_deck = deck
+    print(len(play_deck))
+
     player_cards = []
     computer_cards = []
     game_over = False
 
     for _ in range(2):
-        player_cards.append(deal_cards())
-        computer_cards.append(deal_cards())
+        player_cards.append(deal_cards(play_deck))
+        computer_cards.append(deal_cards(play_deck))
 
     while not game_over:
         player_score = calculate_score(player_cards)
@@ -113,19 +116,20 @@ def play():
         else:
             should_continue = input(blue + "Do you want to draw another card? type 'y' or 'n': \n")
             if should_continue == 'y':
-                player_cards.append(deal_cards())
+                player_cards.append(deal_cards(play_deck))
             elif should_continue == 'n':
                 game_over = True
             else:
                 print("Error, invalid data.Please input valid data. type 'y' or 'n'!!!\n")
 
     while computer_score < 16:
-        computer_cards.append(deal_cards())
+        computer_cards.append(deal_cards(play_deck))
         computer_score = calculate_score(computer_cards)
     print(green + f"Your final hand: {player_cards}, final score: {player_score}")
     print(pink + f"Computer's final hand: {computer_cards}, final score: {computer_score}")
     outcome = compare(player_score, computer_score)
-    print(outcome)
+    print(yellow + outcome)
+    print("\n")
 
     # updates leaderboard on google sheets
     update_leaderboard([username, player_score, computer_score, outcome])
@@ -138,9 +142,15 @@ def play():
 
 while input(blue + "Do you want to play a game of blackjack? type 'y' or 'n': \n") == 'y':
     play()
-    time.sleep(3)
-    os.system('clear')
-    
+    # time.sleep(3)
+    # os.system('clear')
+    # os.system('cls' if os.name == 'nt' else 'clear')
+
+
+
+
+
+
     
 
 
