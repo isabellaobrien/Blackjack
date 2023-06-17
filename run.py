@@ -95,7 +95,6 @@ def play():
     the user can draw another card.The computer draws another cards if
     the score is below 16 and not a blackajack"""
     play_deck = deck
-    print(len(play_deck))
 
     player_cards = []
     computer_cards = []
@@ -136,15 +135,23 @@ def play():
     records = leaderboard.get_all_records()
     records.reverse()
     
-
     for i in range(len(records)):
         print(records[i])
+        
 
-while input(blue + "Do you want to play a game of blackjack? type 'y' or 'n': \n") == 'y':
+want_to_play = 'y'
+yes = ('y')
+valid = ('y', 'n')
+while want_to_play in yes:
     play()
+    want_to_play = input(blue + "Do you want to play a game of blackjack? type 'y' or 'n': \n")
+    while want_to_play not in valid:
+        want_to_play = input("Error, invalid data.Please input valid data. type 'y' or 'n'!!!\n")
+
     # time.sleep(3)
     # os.system('clear')
     # os.system('cls' if os.name == 'nt' else 'clear')
+    
 
 
 
