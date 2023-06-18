@@ -4,10 +4,10 @@ Users play against the computer with a deck of 52 cards. The user needs to try a
 
 [Link to live project](actual link)
 
-(images/Screenshot(45).png)
+(/workspace/Blackjack/images/Screenshot(45).png)
 ![screenshots of the game on on different screen sizes]
 ## How to pay
-This terminal game is based on the famous blackjack casino game.[find out more about blackjack](https://en.wikipedia.org/wiki/Blackjack).
+This terminal game is based on the famous blackjack casino game. [find out more about blackjack](https://en.wikipedia.org/wiki/Blackjack).
 
 In this version the user inputs their username and two cards from a shuffled deck are drawn for the player and the computer.
 
@@ -42,7 +42,7 @@ The computer only draws another card if the score is less than 16.
 ## Data model
 I decided to create functions that to do smaller tasks within the game and call them inside of a larger function that runs the entire game.
  I created a function to:
- - deal te cards
+ - deal the cards
  - calculate the score
  - compare the scores 
  - update the leaderboard
