@@ -4,7 +4,7 @@ Users play against the computer with a deck of 52 cards. The user needs to try a
 
 [Link to live project](https://jackblack-21-56ff233614fb.herokuapp.com/)
 
-![screenshots of the game on on different screen sizes](images/Screenshot(45).png)
+![screenshots of the game on on different screen sizes](Screenshot(45).png)
 ## How to pay
 This terminal game is based on the famous blackjack casino game. [find out more about blackjack](https://en.wikipedia.org/wiki/Blackjack).
 
