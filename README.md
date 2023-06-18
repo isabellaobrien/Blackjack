@@ -2,10 +2,9 @@
 Blackjack is a game that runs in the terminal. It can be played in a mock terminal on heroku.
 Users play against the computer with a deck of 52 cards. The user needs to try and score a blackjack which is 21 points.
 
-[Link to live project](actual link)
+[Link to live project](https://jackblack-21-56ff233614fb.herokuapp.com/)
 
-(/workspace/Blackjack/images/Screenshot(45).png)
-![screenshots of the game on on different screen sizes]
+![screenshots of the game on on different screen sizes](/workspace/Blackjack/images/Screenshot(45).png)
 ## How to pay
 This terminal game is based on the famous blackjack casino game. [find out more about blackjack](https://en.wikipedia.org/wiki/Blackjack).
 
