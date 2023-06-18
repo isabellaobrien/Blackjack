@@ -1,8 +1,6 @@
 import gspread
 from google.oauth2.service_account import Credentials
 import random
-import os
-import time
 from art import blackjack
 from colored import fg
 
@@ -26,8 +24,6 @@ deck = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K',
 def deal_cards(deck):
     """returns the first card from a shuffled deck of cards.
      The delt card is then removed from the deck."""
-
-    
     random.shuffle(deck)
     card = deck[0]
     deck.remove(card)
@@ -65,6 +61,7 @@ print(blue + "Welcome to Blackjack!")
 username = input(green + "What's your user name?\n")
 
 leaderboard = SHEET.worksheet('leaderboard')
+
 def update_leaderboard(data):
     """updates the worksheets"""
     leaderboard.append_row(data)
@@ -148,9 +145,7 @@ while want_to_play in yes:
     while want_to_play not in valid:
         want_to_play = input("Error, invalid data.Please input valid data. type 'y' or 'n'!!!\n")
 
-    # time.sleep(3)
-    # os.system('clear')
-    # os.system('cls' if os.name == 'nt' else 'clear')
+   
     
 
 
